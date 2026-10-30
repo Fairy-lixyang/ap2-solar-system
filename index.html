@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP2 · 三维层级场景：太阳系</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { overflow:hidden; background:#06060f; font-family:"Microsoft YaHei",sans-serif; color:#e8f0ff; }
+  canvas { display:block; }
+
+  #panel{
+    position:fixed; top:16px; left:16px; width:252px; z-index:10;
+    background:rgba(10,14,28,0.84); border:1px solid rgba(120,180,255,0.25);
+    border-radius:12px; padding:14px 16px; backdrop-filter:blur(6px);
+    box-shadow:0 6px 24px rgba(0,0,0,0.5);
+  }
+  #panel h3{ font-size:15px; margin-bottom:10px; color:#8ecbff; }
+  .row{ margin-bottom:11px; }
+  .row label{ display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:4px; }
+  .row label span{ color:#7fb8ff; }
+  input[type=range]{ width:100%; accent-color:#4a9eff; }
+  .chk{ display:flex; align-items:center; gap:8px; font-size:12.5px; cursor:pointer; }
+
+  #proj{
+    position:fixed; top:16px; right:16px; z-index:10;
+    background:rgba(10,14,28,0.82); border:1px solid rgba(120,180,255,0.25);
+    padding:8px 14px; border-radius:20px; font-size:13px; color:#ffd77a;
+  }
+  #hint{
+    position:fixed; bottom:16px; left:50%; transform:translateX(-50%); z-index:10;
+    background:rgba(10,14,28,0.78); border:1px solid rgba(120,180,255,0.2);
+    padding:8px 16px; border-radius:20px; font-size:12.5px; letter-spacing:0.5px;
+    color:#bcd6ff; white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+  <div id="panel">
+    <h3>太阳系 · 参数面板</h3>
+    <div class="row">
+      <label>公转速度 <span id="orbitSpeedVal"></span></label>
+      <input type="range" id="orbitSpeed" min="0" max="3" step="0.05" value="1.5">
+    </div>
+    <div class="row">
+      <label>自转速度 <span id="selfSpeedVal"></span></label>
+      <input type="range" id="selfSpeed" min="0" max="5" step="0.1" value="1">
+    </div>
+    <div class="row">
+      <label>地球轴倾角 <span id="tiltVal"></span></label>
+      <input type="range" id="tilt" min="0" max="90" step="0.5" value="23.5">
+    </div>
+    <div class="row chk">
+      <input type="checkbox" id="orbitLine" checked>
+      <label for="orbitLine">显示轨道线</label>
+    </div>
+  </div>
+
+  <div id="proj">投影：透视（O 切换）</div>
+  <div id="hint">空格 = 暂停/继续漫游 ｜ 鼠标左键拖拽 = 接管视角 ｜ O = 切换正交/透视</div>
+
+  <!-- 使用本地 Three.js，离线也可运行（importmap 把裸模块名 three 映射到本地文件） -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./lib/three.module.js"
+    }
+  }
+  </script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
